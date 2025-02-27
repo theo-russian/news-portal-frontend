@@ -5,7 +5,6 @@ import './NewsForm.css';
 function NewsForm() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [image, setImage] = useState(null);
     const [keywords, setKeywords] = useState('');
 
     const handleSummarize = async () => {
