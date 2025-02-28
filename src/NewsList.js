@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './NewsList.css';
 
 function NewsList() {
     const [news, setNews] = useState([]);
@@ -15,16 +16,19 @@ function NewsList() {
     }, []);
 
     return (
-        <div>
-            <h2>Notizie pubblicate</h2>
+        <div className="NewsList">
+            <h2>Elenco Notizie</h2>
             {news.length === 0 ? (
-                <p>Non ci sono notizie disponibili.</p>
+                <p>Nessuna notizia disponibile.</p>
             ) : (
                 news.map((article, index) => (
                     <div key={index} className="news-item">
                         <h3>{article.title}</h3>
                         <p>{article.content}</p>
-                        <p><strong>Keywords:</strong> {article.keywords}</p>
+                        {article.image_url && (
+                            <img src={article.image_url} alt="Notizia" className="news-image" />
+                        )}
+                        <p><strong>Parole chiave:</strong> {article.keywords}</p>
                     </div>
                 ))
             )}
