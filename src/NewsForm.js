@@ -5,6 +5,7 @@ import './NewsForm.css';
 function NewsForm() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [image, setImage] = useState(null);
     const [keywords, setKeywords] = useState('');
 
     const handleSummarize = async () => {
@@ -55,19 +56,26 @@ function NewsForm() {
             alert("Titolo e notizia sono obbligatori per la pubblicazione!");
             return;
         }
-    
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("content", content);
+        formData.append("keywords", keywords);
+        if (image) {
+            formData.append("image", image);
+        }
+        
         try {
-            const response = await axios.post("https://news-portal-backend-zly25gidqq-ew.a.run.app/publish_news", {
-                title,
-                content,
-                keywords
-            });
+            const response = await axios.post("https://news-portal-backend-zly25gidqq-ew.a.run.app/publish_news", 
+                formData, 
+                { headers: { "Content-Type": "multipart/form-data" } }
+            );
     
             if (response.status === 201) {
                 alert("Notizia pubblicata con successo!");
                 setTitle('');
                 setContent('');
                 setKeywords('');
+                setImage(null);
             }
         } catch (error) {
             console.error("Errore durante la pubblicazione:", error);
