@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './NewsList.css';
 
 function NewsList() {
     const [news, setNews] = useState([]);
